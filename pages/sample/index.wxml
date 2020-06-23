@@ -1,0 +1,4 @@
+<!--pages/sample/index.wxml-->
+<view>
+  <fast-scroll list="{{list}}"></fast-scroll>
+</view>

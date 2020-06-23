@@ -1,0 +1,43 @@
+<!--components/fast-scroll/fast-scroll.wxml-->
+<view class="fast-scroll">
+	<scroll-view scroll-y="true" style="height: 100%;" scroll-into-view="{{scrollIntoView}}">
+		<block wx:for="{{groups}}" wx:key="id" wx:for-item="group">
+			<template is="template-fast-scroll-group" data="{{group, itemType}}" />
+		</block>
+	</scroll-view>
+  <template is="template-fast-scroll-bar" data="{{groups}}" />
+</view>
+
+<template name="template-fast-scroll-group">
+  <view id="{{group.id}}">{{group.tag}}</view>
+  <block wx:if="{{itemType == 'object'}}">
+    <view wx:for="{{group.items}}" wx:key="name">
+      <template is="template-fast-scroll-item-object" data="{{item}}" />
+    </view>
+	</block>
+	<block wx:else>
+    <view wx:for="{{group.items}}" wx:key="*this">
+      <template is="template-fast-scroll-item-string" data="{{item}}" />
+    </view>
+	</block>
+</template>
+
+<template name="template-fast-scroll-item-object">
+	<view>
+		<text>{{item.name}}</text>
+	</view>
+</template>
+
+<template name="template-fast-scroll-item-string">
+	<view>
+		<text>{{item}}</text>
+	</view>
+</template>
+
+<template name="template-fast-scroll-bar">
+  <view class="fast-scroll-bar">
+    <block wx:for="{{groups}}" wx:key="id">
+      <view class="fast-scroll-bar-item" bindtap="fastScrollBarTap" data-tag="{{item.id}}">{{item.tag}}</view>
+    </block>
+  </view>
+</template>

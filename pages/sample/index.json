@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "fast-scroll": "../../components/fast-scroll/fast-scroll"
+  }
+}

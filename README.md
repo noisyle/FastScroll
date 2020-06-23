@@ -1,2 +1,2 @@
 # FastScroll
-A fast-scroll component for wechat miniprogram
+A fast-scroll component for wechat miniprogram.
