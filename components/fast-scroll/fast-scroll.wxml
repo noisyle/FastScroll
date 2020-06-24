@@ -26,7 +26,7 @@
 
 <template name="template-fast-scroll-item-object">
 	<view class="fast-scroll-item object-item" bindtap="itemTap" data-item="{{item}}">
-    <image src="../../images/260x260.png" class="fast-scroll-item-pic"></image>
+    <image src="{{item.pic}}" class="fast-scroll-item-pic"></image>
     <view class="fast-scroll-item-text">
       <text class="title">{{item.name}}</text>
       <text class="subtitle">{{item.album}}</text>
