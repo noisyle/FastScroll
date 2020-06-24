@@ -183,7 +183,8 @@ Component({
     },
 
     onScroll(e) {
-      const idx = this.data.scrollTops.filter(top => top < e.detail.scrollTop).length
+      let idx = this.data.scrollTops.filter(top => top < e.detail.scrollTop).length
+      if(idx > 26) idx = 26
       if(this.data.groups[idx].id === this.data.scrollIntoView) return
       this.setData({
         scrollInto: this.data.groups[idx].id

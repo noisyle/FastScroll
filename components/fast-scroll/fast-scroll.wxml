@@ -9,27 +9,33 @@
 </view>
 
 <template name="template-fast-scroll-group">
-  <view id="{{group.id}}">{{group.tag}}</view>
+  <view class="fast-scroll-group" id="{{group.id}}">
+    <text class="fast-scroll-group-tag">{{group.tag}}</text>
+  </view>
   <block wx:if="{{itemType == 'object'}}">
-    <view wx:for="{{group.items}}" wx:key="name">
+    <block wx:for="{{group.items}}" wx:key="name">
       <template is="template-fast-scroll-item-object" data="{{item}}" />
-    </view>
+    </block>
 	</block>
 	<block wx:else>
-    <view wx:for="{{group.items}}" wx:key="*this">
+    <block wx:for="{{group.items}}" wx:key="*this">
       <template is="template-fast-scroll-item-string" data="{{item}}" />
-    </view>
+    </block>
 	</block>
 </template>
 
 <template name="template-fast-scroll-item-object">
-	<view bindtap="itemTap" data-item="{{item}}">
-		<text>{{item.name}}</text>
+	<view class="fast-scroll-item object-item" bindtap="itemTap" data-item="{{item}}">
+    <image src="../../images/260x260.png" class="fast-scroll-item-pic"></image>
+    <view class="fast-scroll-item-text">
+      <text class="title">{{item.name}}</text>
+      <text class="subtitle">{{item.album}}</text>
+    </view>
 	</view>
 </template>
 
 <template name="template-fast-scroll-item-string">
-	<view bindtap="itemTap" data-item="{{item}}">
+	<view class="fast-scroll-item string-item" bindtap="itemTap" data-item="{{item}}">
 		<text>{{item}}</text>
 	</view>
 </template>
