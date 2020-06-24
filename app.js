@@ -35,5 +35,25 @@ App({
   },
   globalData: {
     userInfo: null
+  },
+  request(url, data, header, method) {
+    return new Promise((resolve, reject) => {
+      wx.showLoading()
+      wx.request({
+        url: url,
+        data: data || {},
+        header: header || {'content-type': 'application/json'},
+        method: method || 'GET',
+        success(res) {
+          resolve(res)
+        },
+        fail(err) {
+          reject(err)
+        },
+        complete() {
+          wx.hideLoading()
+        }
+      })
+    })
   }
 })

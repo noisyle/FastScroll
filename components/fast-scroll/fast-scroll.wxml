@@ -5,7 +5,7 @@
 			<template is="template-fast-scroll-group" data="{{group, itemType}}" />
 		</block>
 	</scroll-view>
-  <template is="template-fast-scroll-bar" data="{{groups}}" />
+  <template is="template-fast-scroll-bar" data="{{groups, scrollIntoView}}" />
 </view>
 
 <template name="template-fast-scroll-group">
@@ -23,21 +23,23 @@
 </template>
 
 <template name="template-fast-scroll-item-object">
-	<view>
+	<view bindtap="itemTap" data-item="{{item}}">
 		<text>{{item.name}}</text>
 	</view>
 </template>
 
 <template name="template-fast-scroll-item-string">
-	<view>
+	<view bindtap="itemTap" data-item="{{item}}">
 		<text>{{item}}</text>
 	</view>
 </template>
 
 <template name="template-fast-scroll-bar">
   <view class="fast-scroll-bar">
-    <block wx:for="{{groups}}" wx:key="id">
-      <view class="fast-scroll-bar-item" bindtap="fastScrollBarTap" data-tag="{{item.id}}">{{item.tag}}</view>
-    </block>
+    <view bindtouchstart="fastScrollBarTouchStart" bindtouchmove="fastScrollBarTouchMove">
+      <block wx:for="{{groups}}" wx:key="id">
+        <view class="fast-scroll-bar-item {{scrollIntoView == item.id ? 'active' : ''}}" data-tag-id="{{item.id}}">{{item.tag}}</view>
+      </block>
+    </view>
   </view>
 </template>

@@ -1,4 +1,4 @@
 <!--pages/sample/index.wxml-->
 <view>
-  <fast-scroll list="{{list}}"></fast-scroll>
+  <fast-scroll list="{{list}}" bind:itemtap="onItemTap"></fast-scroll>
 </view>
