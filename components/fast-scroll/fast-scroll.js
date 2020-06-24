@@ -14,16 +14,17 @@ Component({
     tags: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#'.split(''),
     itemType: 'string',
     groups: [],
+    scrollTops: [],
     scrollIntoView: "_0",
-    ratio: 1,
-    touch: false
+    scrollInto: "_0",
+    touchScrollBar: false,
+    ratio: 1
   },
 
   lifetimes: {
     attached() {
       const res = wx.getSystemInfoSync()
       this.setData({
-        groups: this.data.tags.map((e, i) => {return {id: '_' + i , tag: e, items: []}}),
         pixelRatio: res.pixelRatio,
         ratio: res.windowWidth / 750
       })
@@ -104,7 +105,7 @@ Component({
 
     groupByFirstLetter(arr) {
       const tags = this.data.tags
-      const groups = this.data.groups
+      const groups = this.data.tags.map((e, i) => {return {id: '_' + i , tag: e, items: []}})
       const itemType = typeof arr[0]
 
       if (itemType === 'object') {
@@ -133,16 +134,32 @@ Component({
       } else {
         throw new Error(-1, '错误的元素类型');
       }
-  
+
       this.setData({
         itemType: itemType,
         groups: groups
+      })
+
+      Promise.all(
+        groups.map((e, i) => {
+          return new Promise((resolve, reject) => {
+            wx.createSelectorQuery().in(this).select('#' + e.id).boundingClientRect().exec((res) => {
+              resolve(res[0].top)
+            })
+          })
+        })
+      ).then(res => {
+        this.setData({
+          scrollTops: res
+        })
       })
     },
 
     fastScrollBarTouchStart(e) {
       this.setData({
-        scrollIntoView: e.target.dataset.tagId
+        scrollIntoView: e.target.dataset.tagId,
+        scrollInto: e.target.dataset.tagId,
+        touchScrollBar: true
       })
     },
 
@@ -154,7 +171,22 @@ Component({
       idx = idx < 0 ? 0 : idx > 26 ? 26 : idx
       if(this.data.groups[idx].id === this.data.scrollIntoView) return
       this.setData({
-        scrollIntoView: this.data.groups[idx].id
+        scrollIntoView: this.data.groups[idx].id,
+        scrollInto: this.data.groups[idx].id
+      })
+    },
+
+    fastScrollBarTouchEnd(e) {
+      this.setData({
+        touchScrollBar: false
+      })
+    },
+
+    onScroll(e) {
+      const idx = this.data.scrollTops.filter(top => top < e.detail.scrollTop).length
+      if(this.data.groups[idx].id === this.data.scrollIntoView) return
+      this.setData({
+        scrollInto: this.data.groups[idx].id
       })
     },
 

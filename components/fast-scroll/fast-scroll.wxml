@@ -1,11 +1,11 @@
 <!--components/fast-scroll/fast-scroll.wxml-->
 <view class="fast-scroll">
-	<scroll-view scroll-y="true" style="height: 100%;" scroll-into-view="{{scrollIntoView}}">
+	<scroll-view scroll-y="true" style="height: 100%;" scroll-into-view="{{scrollIntoView}}" bindscroll="onScroll">
 		<block wx:for="{{groups}}" wx:key="id" wx:for-item="group">
 			<template is="template-fast-scroll-group" data="{{group, itemType}}" />
 		</block>
 	</scroll-view>
-  <template is="template-fast-scroll-bar" data="{{groups, scrollIntoView}}" />
+  <template is="template-fast-scroll-bar" data="{{groups, scrollInto}}" />
 </view>
 
 <template name="template-fast-scroll-group">
@@ -38,7 +38,7 @@
   <view class="fast-scroll-bar">
     <view bindtouchstart="fastScrollBarTouchStart" bindtouchmove="fastScrollBarTouchMove">
       <block wx:for="{{groups}}" wx:key="id">
-        <view class="fast-scroll-bar-item {{scrollIntoView == item.id ? 'active' : ''}}" data-tag-id="{{item.id}}">{{item.tag}}</view>
+        <view class="fast-scroll-bar-item {{scrollInto == item.id ? 'active' : ''}}" data-tag-id="{{item.id}}">{{item.tag}}</view>
       </block>
     </view>
   </view>
