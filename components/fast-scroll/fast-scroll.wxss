@@ -66,21 +66,21 @@
   align-items: center;
 }
 
-.title {
+.fast-scroll-item-title {
   color: #000000;
   font-size: 32rpx;
   font-weight: 600;
   text-align: center;
 }
 
-.subtitle {
+.fast-scroll-item-subtitle {
   color: #999999;
   font-size: 24rpx;
   font-weight: 100;
   text-align: center;
 }
 
-.title + .subtitle {
+.fast-scroll-item-title + .fast-scroll-item-subtitle {
   margin-top: 20rpx;
 }
 

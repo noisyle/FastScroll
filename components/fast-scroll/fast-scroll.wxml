@@ -28,8 +28,8 @@
 	<view class="fast-scroll-item object-item" bindtap="itemTap" data-item="{{item}}">
     <image src="{{item.pic}}" class="fast-scroll-item-pic"></image>
     <view class="fast-scroll-item-text">
-      <text class="title">{{item.name}}</text>
-      <text class="subtitle">{{item.album}}</text>
+      <text class="fast-scroll-item-title">{{item.name}}</text>
+      <text class="fast-scroll-item-subtitle">{{item.album}}</text>
     </view>
 	</view>
 </template>

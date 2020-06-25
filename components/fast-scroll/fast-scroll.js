@@ -110,7 +110,7 @@ Component({
       const offset = parseInt((curr_y - start_y) / (30 * this.data.ratio))
       let idx = this.data.groups.map((e, i) => e.id).indexOf(e.target.dataset.tagId) + offset
       idx = idx < 0 ? 0 : idx > 26 ? 26 : idx
-      if(this.data.groups[idx].id === this.data.scrollIntoView) return
+      if(this.data.groups[idx].id === this.data.scrollInto) return
       this.setData({
         scrollIntoView: this.data.groups[idx].id,
         scrollInto: this.data.groups[idx].id
@@ -118,9 +118,9 @@ Component({
     },
 
     onScroll(e) {
-      let idx = this.data.scrollTops.filter(top => top < e.detail.scrollTop).length
+      let idx = this.data.scrollTops.filter(top => top < e.detail.scrollTop - 20).length
       if(idx > 26) idx = 26
-      if(this.data.groups[idx].id === this.data.scrollIntoView) return
+      if(this.data.groups[idx].id === this.data.scrollInto) return
       this.setData({
         scrollInto: this.data.groups[idx].id
       })
