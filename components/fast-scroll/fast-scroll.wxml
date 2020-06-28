@@ -5,7 +5,7 @@
 			<template is="template-fast-scroll-group" data="{{group, itemType}}" />
 		</block>
 	</scroll-view>
-  <template is="template-fast-scroll-bar" data="{{groups, scrollInto}}" />
+  <template is="template-fast-scroll-bar" data="{{groups, scrollInto, touching}}" />
 </view>
 
 <template name="template-fast-scroll-group">
@@ -42,9 +42,12 @@
 
 <template name="template-fast-scroll-bar">
   <view class="fast-scroll-bar">
-    <view bindtouchstart="fastScrollBarTouchStart" bindtouchmove="fastScrollBarTouchMove">
+    <view bindtouchstart="fastScrollBarTouchStart" bindtouchmove="fastScrollBarTouchMove" bindtouchend="fastScrollBarTouchEnd">
       <block wx:for="{{groups}}" wx:key="id">
-        <view class="fast-scroll-bar-item {{scrollInto == item.id ? 'active' : ''}}" data-tag-id="{{item.id}}">{{item.tag}}</view>
+        <view class="fast-scroll-bar-item {{scrollInto == item.id ? 'active' : ''}} {{touching ? 'touching' : ''}}" data-tag-id="{{item.id}}">
+          {{item.tag}}
+          <view class="fast-scroll-bar-bubble {{touching ? '' : ''}}">{{item.tag}}</view>
+        </view>
       </block>
     </view>
   </view>

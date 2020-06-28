@@ -20,8 +20,8 @@
   margin: 0 22rpx;
 }
 
-.fast-scroll-group:before,
-.fast-scroll-group:after {
+.fast-scroll-group::before,
+.fast-scroll-group::after {
   content: '';
   display: inline-block;
   width: 100px;
@@ -98,13 +98,15 @@
 }
 
 .fast-scroll-bar-item {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 20rpx;
-  line-height: 30rpx;
   width: 30rpx;
   height: 30rpx;
+  margin: 0 5rpx;
+  font-size: 20rpx;
+  line-height: 30rpx;
   color: #999999;
 }
 
@@ -112,4 +114,31 @@
   color: #EEEEEE;
   background-color: #333333;
   border-radius: 50%;
+}
+
+.fast-scroll-bar-bubble {
+  display: none;
+  position: absolute;
+  left: -100rpx;
+  width: 60rpx;
+  height: 60rpx;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #333333;
+  color: #EEEEEE;
+  font-size: 30rpx;
+  line-height: 30rpx;
+}
+
+.fast-scroll-bar-item.active.touching .fast-scroll-bar-bubble {
+  display: flex;
+}
+
+.fast-scroll-bar-bubble::after {
+  content: '';
+  position: absolute;
+  left: 50rpx;
+  border: 20rpx solid transparent;
+  border-left: 20rpx solid #333333;
 }

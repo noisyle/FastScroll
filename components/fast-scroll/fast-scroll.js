@@ -17,7 +17,8 @@ Component({
     scrollTops: [],
     scrollIntoView: '_0',
     scrollInto: '_0',
-    ratio: 1
+    ratio: 1,
+    touching: false
   },
 
   lifetimes: {
@@ -100,14 +101,15 @@ Component({
     fastScrollBarTouchStart(e) {
       this.setData({
         scrollIntoView: e.target.dataset.tagId,
-        scrollInto: e.target.dataset.tagId
+        scrollInto: e.target.dataset.tagId,
+        touching: true
       })
     },
 
     fastScrollBarTouchMove(e) {
       const start_y = e.target.offsetTop
       const curr_y = e.touches[0].clientY
-      const offset = parseInt((curr_y - start_y) / (30 * this.data.ratio))
+      const offset = parseInt((curr_y - start_y - 15) / (30 * this.data.ratio))
       let idx = this.data.groups.map((e, i) => e.id).indexOf(e.target.dataset.tagId) + offset
       idx = idx < 0 ? 0 : idx > 26 ? 26 : idx
       if(this.data.groups[idx].id === this.data.scrollInto) return
@@ -117,8 +119,14 @@ Component({
       })
     },
 
+    fastScrollBarTouchEnd(e) {
+      this.setData({
+        touching: false
+      })
+    },
+
     onScroll(e) {
-      let idx = this.data.scrollTops.filter(top => top < e.detail.scrollTop - 20).length
+      let idx = this.data.scrollTops.filter(top => top < e.detail.scrollTop - 15).length
       if(idx > 26) idx = 26
       if(this.data.groups[idx].id === this.data.scrollInto) return
       this.setData({
